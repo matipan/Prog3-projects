@@ -46,6 +46,7 @@ public class Recorrido<T> {
 		hijoDerechoB.agregarHijoDerecho(new ArbolBinario<Integer>(8));		
 		arbolBinarioB.agregarHijoIzquierdo(hijoIzquierdoB);
 		arbolBinarioB.agregarHijoDerecho(hijoDerechoB);
+		System.out.println("Suma vertical maxima: " + Utiles.sumaVerticalMaxima(arbolBinarioB));
 		
 		Recorrido<Integer> recorrido= new Recorrido<Integer>();
 		System.out.println("Impresion PreOrder: ");
