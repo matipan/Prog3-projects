@@ -14,8 +14,5 @@ public class Utiles<T> {
 			return arb.getDatoRaiz() + Math.max(sumaVerticalMaxima(arb.getHijoDerecho()),sumaVerticalMaxima(arb.getHijoIzquierdo()));
 		}
 	}
-	
-	public static ListaDeEnteros trayectoriaPesada(ArbolBinario<Integer> abinario){
-		
-	}
+
 }

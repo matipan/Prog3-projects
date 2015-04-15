@@ -11,7 +11,7 @@ public class ColaGenerica<T> {
 
 	public T desencolar() {
 		T elemento = this.datos.elemento(1);
-		this.datos.eliminar(1);
+		this.datos.eliminarEn(1);
 		return elemento;
 	}
 

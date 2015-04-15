@@ -68,18 +68,18 @@ public class ArbolGeneralTest {
 		assertEquals(true,ag.include(8));
 
 	}
-	//@Test
-	//public void testNivel() {
-		////Prueba para un arbol que es solo una hoja
-		//assertEquals(new Integer(0), a5.nivel(5));
+	@Test
+	public void testNivel() {
+		//Prueba para un arbol que es solo una hoja
+		assertEquals(new Integer(0), a5.nivel(5));
 		
-		////Prueba para distintos elementos del arbol ag
-		//assertEquals(new Integer(0), ag.nivel(1));
-		//assertEquals(new Integer(1), ag.nivel(2));
-		//assertEquals(new Integer(2), ag.nivel(7));
-		//assertEquals(new Integer(2), ag.nivel(9));
-		//assertEquals(new Integer(-1), ag.nivel(10));
-	//}
+		//Prueba para distintos elementos del arbol ag
+		assertEquals(new Integer(0), ag.nivel(1));
+		assertEquals(new Integer(1), ag.nivel(2));
+		assertEquals(new Integer(2), ag.nivel(7));
+		assertEquals(new Integer(2), ag.nivel(9));
+		assertEquals(new Integer(-1), ag.nivel(10));
+	}
 
 	//@Test
 	//public void testAncho() {

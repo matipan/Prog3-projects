@@ -2,6 +2,7 @@ package prog3.arbol.general;
 
 import prog3.lista.ListaEnlazadaGenerica;
 import prog3.lista.ListaGenerica;
+import prog3.util.ColaGenerica;
 
 public class ArbolGeneral<T> {
 
@@ -136,12 +137,41 @@ public class ArbolGeneral<T> {
 		
 	}
 	public Integer nivel(T dato) {
-		return recuNivel(this,dato);
+		if(raiz == null)
+			return -1;
+		else{
+			if (this.getDatoRaiz() == dato) {
+				return 0;
+			}
+			else {
+				ColaGenerica<ArbolGeneral<T>> cola = new ColaGenerica<ArbolGeneral<T>>();
+				int nivelDato = 0;
+				cola.encolar(this);
+				cola.encolar(null);
+				while (!cola.esVacia()) { 
+					ArbolGeneral<T> aux = cola.desencolar();
+					if ((aux == null) && (!cola.esVacia())) {
+						cola.encolar(null);
+						nivelDato+=1;
+					}
+					else {
+						if (aux.getDatoRaiz() == dato) {
+							return nivelDato;
+						}
+						else{
+							ListaGenerica<ArbolGeneral<T>> hijos = aux.getHijos();
+							hijos.comenzar();
+							while (!hijos.fin()) {
+									cola.encolar(hijos.proximo());
+							}
+						}
+					}
+				}
+			}
+			return -1;
+		}
 	}
-
-	private Integer recuNivel(ArbolGeneral<T> ageneral, T dato){
-		return 0;
-	}
+       
 	public Integer ancho() {
 		// Falta implementar..
 		return 0;
