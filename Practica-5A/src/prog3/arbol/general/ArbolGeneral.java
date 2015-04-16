@@ -172,9 +172,30 @@ public class ArbolGeneral<T> {
 		}
 	}
        
-	public Integer ancho() {
-		// Falta implementar..
-		return 0;
-	}
+    public Integer ancho() {
+        ColaGenerica<ArbolGeneral<T>> cola= new ColaGenerica<ArbolGeneral<T>>();
+        cola.encolar(this);
+        cola.encolar(null);
+        int anchoMax=0;
+        int anchoNivel=0;
+        while(!cola.esVacia()){
+                ArbolGeneral<T> ab=cola.desencolar();
+                if(ab==null){
+                        anchoMax=(anchoNivel>anchoMax)?anchoNivel:anchoMax;
+                        anchoNivel=0;
+                        if(!cola.esVacia()){//si termino el nivel y no es vacia
+                                cola.encolar(null);
+                        }
+                }else{
+                        anchoNivel++;
+                        ListaGenerica<ArbolGeneral<T>> hijos=ab.getHijos();
+                        hijos.comenzar();
+                        while(!hijos.fin()){
+                                cola.encolar(hijos.proximo());
+                        }
+                }
+        }
+        return anchoMax;
+}
 
 }
