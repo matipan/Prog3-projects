@@ -2,6 +2,7 @@ package prog3.arbol.binariobusqueda;
 
 import prog3.arbol.binario.NodoBinario;
 import java.lang.Comparable;
+//Hola esto se un comentario
 
 public class ArbolBinarioDeBusqueda<T extends Comparable<T>> {
 
