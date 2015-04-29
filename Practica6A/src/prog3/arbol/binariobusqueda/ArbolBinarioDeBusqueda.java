@@ -100,67 +100,12 @@ public class ArbolBinarioDeBusqueda<T extends Comparable<T>> {
 	public void eliminar(T dato, ArbolBinarioDeBusqueda<T> ab) {
 		// Falta implementar. Ejercicio 3a.
 	}
-	private boolean esHoja(){
+	private boolean esHoja(ArbolBinarioDeBusqueda<T> ab){
 		if((ab.getHijoDerecho() == null)&&(ab.getHijoIzquierdo() == null)){
 			return true;
 		}
 		else{
 			return false;
-		}
-	}
-	
-	private void reemplazarRaizCon(ArbolBinarioDeBusqueda<T> ab){
-		ab.setHijoIzquierdo() = this.getHijoIzquierdo();
-		ab.setHijoDerecho() = this.getHijoDerecho();
-		ab.getDatoRaiz() = this.getDatoRaiz();
-	}
-
-	private ArbolBinarioDeBusqueda<T> minimoIzquierdo(ArbolBinarioDeBusqueda<T> ab){
-		if (ab.getHijoIzquierdo() != null) {
-			minimoIzquierdo(ab.getHijoIzquierdo());
-		}
-		else {
-			return ab;
-		}
-	}
-	
-	private ArbolBinarioDeBusqueda<T> maximoDerecho(ArbolBinarioDeBusqueda<T> ab){
-		if (ab.getHijoDerecho() != null) {
-			maximoDerecho(ab.getHijoDerecho());
-		}
-		else {
-			return ab;
-		}
-	}
-	private void eliminarRecu(T dato, ArbolBinarioDeBusqueda<T> ab){
-		if(ab.getDatoRaiz().compareTo(dato)==0){
-			//Entra porque encontro el dato
-			if (!ab.esHoja()) {
-				//Caso de que tengas hijos entra aca
-				if (ab.getHijoDerecho()!=null) {
-					if (ab.getHijoIzquierdo()!=null) {
-						//Caso de que tiene hijo izquierdo y derecho
-						ab.reemplazarRaizCon(maximoDerecho(ab));
-					}
-					else {
-						//Caso de que tiene hijo derecho pero no izquierdo
-						ab.reemplazarRaizCon(minimoIzquierdo(ab));
-					}
-				}
-				else {
-					//Entra aca porque tiene hijo izquierdo y no tiene hijo derecho
-					ab.reemplazarRaizCon(maximoDerecho(ab));
-				}
-			}
-		}
-		else {
-			// Entra aca porque no encontro el dato
-			if (ab.getDatoRaiz().compareTo(dato) > 0) {
-				eliminarRecu(dato,ab.getHijoIzquierdo());
-			}
-			else {
-				eliminarRecu(dato,ab.getHijoDerecho());
-			}
 		}
 	}
 
