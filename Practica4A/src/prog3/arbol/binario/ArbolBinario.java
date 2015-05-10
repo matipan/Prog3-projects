@@ -113,7 +113,7 @@ public class ArbolBinario<T> {
 		else {
 			ColaGenerica<ArbolBinario<T>> cola = new ColaGenerica<ArbolBinario<T>>();
 			cola.encolar(this);
-			// Creamos un flag para cuando encuentre un nodo que no este lleno(que tiene ambos hijos), flag NON-FULL-NODE
+			// Creamos un flag para cuando encuentre un nodo que no este lleno(que no tiene ambos hijos), flag NON-FULL-NODE
 			boolean flagNFN = false;
 			while (!cola.esVacia()) {
 				ArbolBinario<T> temp = cola.desencolar();
