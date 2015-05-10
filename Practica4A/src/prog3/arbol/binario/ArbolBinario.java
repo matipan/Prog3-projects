@@ -103,11 +103,43 @@ public class ArbolBinario<T> {
 		System.out.println("Cantidad de nodos: " + this.contar());
 		return this.contar() == (Math.pow(2,this.altura()+1) - 1);
 	}
-	
-	public boolean completo() {
-		//Falta implementar. 
-		return true;
-
+	private boolean nodoLleno(){
+		return (this.getHijoIzquierdo()!= null && this.getHijoDerecho() != null);
 	}
 	
+	public boolean completo() {
+		if(this == null)
+			return true; // un arbol vacio es completo
+		else {
+			ColaGenerica<ArbolBinario<T>> cola = new ColaGenerica<ArbolBinario<T>>();
+			cola.encolar(this);
+			// Creamos un flag para cuando encuentre un nodo que no este lleno(que tiene ambos hijos), flag NON-FULL-NODE
+			boolean flagNFN = false;
+			while (!cola.esVacia()) {
+				ArbolBinario<T> temp = cola.desencolar();
+				// 
+				if (!this.getHijoIzquierdo().esVacio()) {
+					if (flagNFN) {
+					// si entra quiere decir que encontramos un nodo que no esta lleno,si no esta llenoy hay algo en el hijo izquierd quiere decir que no es completo
+						return false;
+					}
+					cola.encolar(this.getHijoIzquierdo()); // encolamos el hijo izquierdo
+				}
+				else {
+					flagNFN = false; // ya que encontramos un nodo que no esta lleno
+				}
+				if (!this.getHijoDerecho().esVacio()) {
+					if (flagNFN) {
+						return false; // mismo caso que el anterior
+					}
+					cola.encolar(this.getHijoDerecho()); // encolamos hijo derecho
+				}
+				else {
+					flagNFN = true; // encontramos un nodo que no esta lleno
+				}
+			}
+			// si llego aca quiere decir que esta completo
+			return true;
+		}
+	}
 }
