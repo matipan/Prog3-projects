@@ -71,7 +71,7 @@ public class Empresa {
 		ArbolGeneral<Empleado> maximo;
 		hijos.comenzar();
 		while(!hijos.fin()){
-			if(max < hijos.elemento(i).getDatoRaiz().getAntiguedad()){
+			if(max <= hijos.elemento(i).getDatoRaiz().getAntiguedad()){
 				max = hijos.elemento(i).getDatoRaiz().getAntiguedad();
 				maximo = hijos.elemento(i);
 			}
