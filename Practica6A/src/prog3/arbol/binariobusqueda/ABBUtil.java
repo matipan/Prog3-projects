@@ -9,22 +9,14 @@ import prog3.lista.simple.ListaDeEnterosEnlazada;
  */
 
 public class ABBUtil{
-	ArbolBinarioDeBusqueda<Integer> abb = new ArbolBinarioDeBusqueda<Integer>();
-	abb.agregar(7);
-	abb.agregar(3);
-	abb.agregar(8);
-	abb.agregar(1);
-	abb.agregar(5);
-	abb.agregar(12);
-	
-	
-	
-	public ListaEnlazadaGenerica<ListaEnlazadaGenerica<Integer>> sumaCaminos(ArbolBinarioDeBusqueda<Integer> ABB, int valor){
-		ListaEnlazadaGenerica<ListaEnlazadaGenerica<Integer>> lista = new ListaEnlazadaGenerica<ListaEnlazadaGenerica<Integer>>();
+	public ListaEnlazadaGenerica<ListaDeEnterosEnlazada> sumaCaminos(ArbolBinarioDeBusqueda<Integer> ABB, int valor){
+		ListaEnlazadaGenerica<ListaDeEnterosEnlazada> lista = new ListaEnlazadaGenerica<ListaDeEnterosEnlazada>();
 		ListaDeEnterosEnlazada lista2 = new ListaDeEnterosEnlazada();
+		sumaCaminosRecu(ABB,lista2,lista,valor);
+		return lista;
 	}
 	
-	private int sumaCaminosRecu(ArbolBinarioDeBusqueda<Integer> abb, ListaDeEnterosEnlazada aux, ListaEnlazadaGenerica<ListaEnlazadaGenerica<Integer>> lista, int valor){
+	private void sumaCaminosRecu(ArbolBinarioDeBusqueda<Integer> abb, ListaDeEnterosEnlazada aux, ListaEnlazadaGenerica<ListaDeEnterosEnlazada> lista, int valor){
 		if (valor - abb.getDatoRaiz() == 0) {
 			aux.agregarFinal(abb.getDatoRaiz());
 		}

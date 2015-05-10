@@ -97,16 +97,8 @@ public class ArbolBinarioDeBusqueda<T extends Comparable<T>> {
 		}
 	}
 
-	public void eliminar(T dato, ArbolBinarioDeBusqueda<T> ab) {
+	public void eliminar(T dato) {
 		// Falta implementar. Ejercicio 3a.
-	}
-	private boolean esHoja(ArbolBinarioDeBusqueda<T> ab){
-		if((ab.getHijoDerecho() == null)&&(ab.getHijoIzquierdo() == null)){
-			return true;
-		}
-		else{
-			return false;
-		}
 	}
 
 	public boolean esVacio() {
