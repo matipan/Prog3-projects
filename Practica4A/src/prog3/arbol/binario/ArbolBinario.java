@@ -2,6 +2,7 @@ package prog3.arbol.binario;
 
 import prog3.lista.ListaEnlazadaGenerica;
 import prog3.lista.ListaGenerica;
+import prog3.util.ColaGenerica;
 
 public class ArbolBinario<T> {
 
