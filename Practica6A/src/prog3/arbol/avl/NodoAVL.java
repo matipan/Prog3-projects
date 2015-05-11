@@ -36,4 +36,12 @@ public class NodoAVL<T extends Comparable<T>> {
 	public void setHijoDerecho(NodoAVL<T> hijoDer){		
 		this.hijoDerecho = hijoDer;
 	}	
+	
+	public void setAltura(int altura){
+		this.altura = altura;
+	}
+	
+	public int getAltura(){
+		return this.altura;
+	}
 }

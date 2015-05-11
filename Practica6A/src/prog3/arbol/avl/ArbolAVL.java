@@ -78,21 +78,40 @@ public class ArbolAVL<T extends Comparable<T>> {
 	public boolean esVacio() {
 		return (this.getRaiz() == null);
 	}
-	
-	private void rotacionSimpleIzq(NodoAVL<T> nodo){
-		// Falta implementar.Ejercicio 6a.
+	private int altura(NodoAVL<T> avl){
+		if(avl == null){
+			return -1;
+		}
+		else{
+			return avl.getAltura();
+		}
+	}
+	private NodoAVL<T> rotacionSimpleIzq(NodoAVL<T> k1){
+		NodoAVL<T> k2 = k1.getHijoIzquierdo();
+		k1.setHijoIzquierdo(k2.getHijoDerecho());
+		k2.setHijoDerecho(k1);
+		k1.setAltura(Math.max(altura(k1.getHijoIzquierdo()), altura(k1.getHijoDerecho()))+1);
+		k2.setAltura(Math.max(altura(k2.getHijoIzquierdo()), k1.getAltura()) + 1);
+		return k2;
 	}
 	
-	private void rotacionSimpleDer(NodoAVL<T> nodo){
-		// Falta implementar.Ejercicio 6a.
+	private NodoAVL<T> rotacionSimpleDer(NodoAVL<T> k1){
+		NodoAVL<T> k2 = k1.getHijoDerecho();
+		k1.setHijoDerecho(k2.getHijoIzquierdo());
+		k2.setHijoIzquierdo(k1);
+		k1.setAltura(Math.max(altura(k1.getHijoIzquierdo()),altura(k1.getHijoDerecho()))+1);
+		k2.setAltura(Math.max(altura(k2.getHijoDerecho()), altura(k1)) + 1);
+		return k2;
 	}
 	
-	private void rotacionDobleIzq(NodoAVL<T> nodo){
-		// Falta implementar.Ejercicio 6a.
+	private NodoAVL<T> rotacionDobleIzq(NodoAVL<T> k1){
+		k1.setHijoIzquierdo(rotacionSimpleDer(k1.getHijoIzquierdo()));
+		return rotacionSimpleIzq(k1);
 	}
 	
-	private void rotacionDobleDer(NodoAVL<T> nodo){
-		// Falta implementar.Ejercicio 6a.
+	private NodoAVL<T> rotacionDobleDer(NodoAVL<T> k1){
+		k1.setHijoDerecho(rotacionSimpleIzq(k1.getHijoDerecho()));
+		return rotacionSimpleDer(k1);
 	}
 
 }
