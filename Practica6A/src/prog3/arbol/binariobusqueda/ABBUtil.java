@@ -31,3 +31,23 @@ public class ABBUtil{
 		lista.agregarFinal(aux);
 	}
 }
+
+	public ListaDeEnterosEnlazada menoresOrdenados(ArbolBinarioDeBusqueda<Integer> arbol, int valor){
+		ListaDeEnterosEnlazada lista = new ListaDeEnterosEnlazada();
+		menoresRecu(arbol,lista,valor);
+		return lista;
+	}
+
+	private void menoresRecu(ArbolBinarioDeBusqueda<Integer> arbol, ListaEnlazadaGenerica lista, int valor){
+		if (arbol.esVacio()) {
+			if (valor > arbol.getDatoRaiz()) {
+				menoresRecu(arbol.getHijoIzquierdo(),lista,valor);
+				lista.agregarFinal(arbol.getDatoRaiz());
+				menoresRecu(arbol.getHijoDerecho(), lista, valor);
+			}
+			else {
+				menoresRecu(arbol.getHijoIzquierdo());
+			}
+		}
+	}
+}
