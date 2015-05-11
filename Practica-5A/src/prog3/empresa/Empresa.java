@@ -60,23 +60,26 @@ public class Empresa {
 	public void reemplazarPresidente(){
 		reempRecu(this.empleados);
 	}
-	private ArbolGeneral<Empleado> reempRecu(ArbolGeneral<Empleado> emp){
-			ListaGenerica<ArbolGeneral<Empleado>> hijos = this.empleados.getHijos();
-			this.empleados = reempRecu(max(hijos));
-	}
 
-	private ArbolGeneral<Empleado> max(ListaGenerica<ArbolGeneral<Empleado>> hijos) {
-		int max = -1;
+	private void reempRecu(ArbolGeneral<Empleado> empleados) {
+		int max = empleados.getDatoRaiz().getAntiguedad();
 		int i = 0;
-		ArbolGeneral<Empleado> maximo;
+		ArbolGeneral<Empleado> hijoMaximo = null;
+		ListaGenerica<ArbolGeneral<Empleado>> hijos = empleados.getHijos();
 		hijos.comenzar();
 		while(!hijos.fin()){
 			if(max <= hijos.elemento(i).getDatoRaiz().getAntiguedad()){
-				max = hijos.elemento(i).getDatoRaiz().getAntiguedad();
-				maximo = hijos.elemento(i);
+				empleados.getDatoRaiz().setAntiguedad(hijos.elemento(i).getDatoRaiz().getAntiguedad());
+				hijoMaximo = hijos.elemento(i);
+				max = empleados.getDatoRaiz().getAntiguedad();
 			}
 			i++;
 		}
-		return maximo;
+		if(hijoMaximo.esHoja()){
+			empleados.eliminarHijo(hijoMaximo);
+		}
+		else {
+			reempRecu(hijoMaximo);
+		}
 	}
 }
