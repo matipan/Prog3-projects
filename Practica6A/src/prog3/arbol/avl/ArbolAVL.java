@@ -65,10 +65,48 @@ public class ArbolAVL<T extends Comparable<T>> {
 		}
 	}
 
+	private NodoAVL<T> balancear(NodoAVL<T> avl , T dato){
+		if (altura(avl.getHijoIzquierdo()) - altura(avl.getHijoDerecho()) == 2) {
+			if (dato.compareTo(avl.getHijoIzquierdo().getDato()) < 0) {
+				rotacionSimpleIzq(avl);
+			}
+			else {
+				rotacionDobleIzq(avl);
+			}
+		}
+		else {
+			if (altura(avl.getHijoDerecho()) - altura(avl.getHijoIzquierdo()) == 2) {
+				if (dato.compareTo(avl.getHijoDerecho().getDato()) > 0) {
+					rotacionSimpleDer(avl);
+				}
+				else {
+					rotacionDobleDer(avl);
+				}
+			}
+		}
+		avl.setAltura(Math.max(altura(avl.getHijoIzquierdo()),altura(avl.getHijoDerecho())) + 1);
+		return avl;
+	}
 
-	public void agregar(T dato) {
-		// Falta implementar. Ejercicio 6a.
 
+	public NodoAVL<T> agregar(T dato) {
+		if (this == null) {
+			this.raiz = new NodoAVL<T>(dato);
+		}
+		else {
+			if (this.getDatoRaiz().compareTo(dato) > 0) {
+				this.getHijoIzquierdo().agregar(dato);
+			}
+			else {
+				if(this.getDatoRaiz().compareTo(dato) < 0){
+					this.getHijoDerecho().agregar(dato);
+				}
+				else; // si el dato ya esta en el arbol, no hace nada
+			}
+		}
+		this.raiz = balancear(this.raiz, dato);
+		this.getDatoRaiz().setAltura(Math.max(altura(this.getHijoIzquierdo().getRaiz()),altura(this.getHijoDerecho().getDato())) + 1);
+		return this.raiz;
 	}
 
 	public void eliminar(T dato) {
