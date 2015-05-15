@@ -112,29 +112,39 @@ public class ArbolBinarioDeBusqueda<T extends Comparable<T>> {
 		}
 		else {
 			if (dato.compareTo(arbol.getDatoRaiz()) < 0) {
-				eliminarRecu(dato, this.getHijoIzquierdo());
+				eliminarRecu(dato, arbol.getHijoIzquierdo());
 			}
 			else {
 				if (dato.compareTo(arbol.getDatoRaiz()) > 0 ) {
-					eliminarRecu(dato, this.getHijoDerecho());
+					eliminarRecu(dato, arbol.getHijoDerecho());
 				}
 				else {
-					if (!(this.getHijoIzquierdo().esVacio()) && !(this.getHijoDerecho().esVacio())) {
-						this = findMin(this.getHijoDerecho());
-						eliminarRecu(this.getDatoRaiz(),this.getHijoDerecho());
+					if (!(arbol.getHijoIzquierdo().esVacio()) && !(arbol.getHijoDerecho().esVacio())) {
+						arbol.raiz.setDato(findMin(arbol.getHijoDerecho()));
+						eliminarRecu(arbol.getDatoRaiz(),arbol.getHijoDerecho());
 					}
 					else {
-						this = (!this.getHijoIzquierdo().esVacio())?this.getHijoIzquierdo():this.getHijoDerecho();
-						return true;
+						if (!arbol.getHijoIzquierdo().esVacio()) {
+							arbol.raiz.setDato(arbol.getHijoIzquierdo().getDatoRaiz());
+							eliminarRecu(arbol.getDatoRaiz(), arbol.getHijoIzquierdo());
+						} else {
+							if(!arbol.getHijoDerecho().esVacio()){
+								arbol.raiz.setDato(arbol.getHijoDerecho().getDatoRaiz());
+								eliminarRecu(arbol.getDatoRaiz(), arbol.getHijoDerecho());
+							} else{
+								arbol = null;
+							}
+						}
 					}
 				}
 			}
+			return true;
 		}
 	}
-	private ArbolBinarioDeBusqueda<T> findMin(ArbolBinarioDeBusqueda<T> arbol){
+	private T findMin(ArbolBinarioDeBusqueda<T> arbol){
 		if(!arbol.esVacio()){
 			if(arbol.getHijoIzquierdo().esVacio()){
-				return arbol;
+				return arbol.getDatoRaiz();
 			}
 			else {
 				return findMin(arbol.getHijoIzquierdo());

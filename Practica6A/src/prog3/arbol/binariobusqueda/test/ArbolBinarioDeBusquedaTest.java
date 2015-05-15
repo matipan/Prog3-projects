@@ -88,47 +88,49 @@ public class ArbolBinarioDeBusquedaTest {
 		assertEquals("mundo",arbol.getDatoRaiz());
 		assertEquals("zzz", arbol.getHijoDerecho().getDatoRaiz());
 	}
-	
-	@Test
-	public void iteracion(){
-
-		// manejo del caso vacio
-		Iterador<String> it = new Iterador<String>(arbol);
-		assertFalse(it.hasNext());
-
-		// ahora con datos
-		arbol.agregar("e");
-		arbol.agregar("c");
-		arbol.agregar("d");
-		arbol.agregar("f");
-		arbol.agregar("a");
-		arbol.agregar("b");
-		arbol.agregar("g");
-		arbol.agregar("i");
-		arbol.agregar("h");
-		
-		it = new Iterador<String>(arbol);
-		
-		assertTrue(it.hasNext());
-		assertEquals("a", it.next());
-		assertTrue(it.hasNext());
-		assertEquals("b", it.next());
-		assertTrue(it.hasNext());
-		assertEquals("c", it.next());
-		assertTrue(it.hasNext());
-		assertEquals("d", it.next());
-		assertTrue(it.hasNext());
-		assertEquals("e", it.next());
-		assertTrue(it.hasNext());
-		assertEquals("f", it.next());
-		assertTrue(it.hasNext());
-		assertEquals("g", it.next());
-		assertTrue(it.hasNext());
-		assertEquals("h", it.next());
-		assertTrue(it.hasNext());
-		assertEquals("i", it.next());
-		assertFalse(it.hasNext());
-
-		
-	}
+/*
+ *    
+ *    @Test
+ *    public void iteracion(){
+ *
+ *        // manejo del caso vacio
+ *        Iterador<String> it = new Iterador<String>(arbol);
+ *        assertFalse(it.hasNext());
+ *
+ *        // ahora con datos
+ *        arbol.agregar("e");
+ *        arbol.agregar("c");
+ *        arbol.agregar("d");
+ *        arbol.agregar("f");
+ *        arbol.agregar("a");
+ *        arbol.agregar("b");
+ *        arbol.agregar("g");
+ *        arbol.agregar("i");
+ *        arbol.agregar("h");
+ *        
+ *        it = new Iterador<String>(arbol);
+ *        
+ *        assertTrue(it.hasNext());
+ *        assertEquals("a", it.next());
+ *        assertTrue(it.hasNext());
+ *        assertEquals("b", it.next());
+ *        assertTrue(it.hasNext());
+ *        assertEquals("c", it.next());
+ *        assertTrue(it.hasNext());
+ *        assertEquals("d", it.next());
+ *        assertTrue(it.hasNext());
+ *        assertEquals("e", it.next());
+ *        assertTrue(it.hasNext());
+ *        assertEquals("f", it.next());
+ *        assertTrue(it.hasNext());
+ *        assertEquals("g", it.next());
+ *        assertTrue(it.hasNext());
+ *        assertEquals("h", it.next());
+ *        assertTrue(it.hasNext());
+ *        assertEquals("i", it.next());
+ *        assertFalse(it.hasNext());
+ *
+ *        
+ *    }
+ */
 }
