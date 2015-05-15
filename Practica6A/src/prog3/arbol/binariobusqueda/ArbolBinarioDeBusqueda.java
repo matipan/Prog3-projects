@@ -77,8 +77,8 @@ public class ArbolBinarioDeBusqueda<T extends Comparable<T>> {
 	}
 	
 	private void agregarRecu(T dato, ArbolBinarioDeBusqueda<T> ab){
-		if (ab.getDatoRaiz().compareTo(dato) == 1) {
-			if(ab.getHijoIzquierdo().esVacio()){
+		if (ab.getDatoRaiz().compareTo(dato) > 0) {
+			if(!ab.getHijoIzquierdo().esVacio()){
 				agregarRecu(dato, ab.getHijoIzquierdo());	
 			}
 			else{
@@ -86,8 +86,8 @@ public class ArbolBinarioDeBusqueda<T extends Comparable<T>> {
 			}
 		}
 		else{
-			if(ab.getDatoRaiz().compareTo(dato) == -1){
-				if(ab.getHijoDerecho().esVacio()){
+			if(ab.getDatoRaiz().compareTo(dato) < 0){
+				if(!ab.getHijoDerecho().esVacio()){
 					agregarRecu(dato,ab.getHijoDerecho());
 				}
 				else{
@@ -98,7 +98,51 @@ public class ArbolBinarioDeBusqueda<T extends Comparable<T>> {
 	}
 
 	public void eliminar(T dato) {
-		// Falta implementar. Ejercicio 3a.
+		if (eliminarRecu(dato, this)) {
+			System.out.println("Se pudo eliminar el elemento: " + dato);
+		}
+		else{
+			System.out.println("El elemento: " + dato + " no fue encontrado");
+		}
+	}
+
+	private boolean eliminarRecu(T dato, ArbolBinarioDeBusqueda<T> arbol){
+		if (arbol.esVacio()) {
+			return false;
+		}
+		else {
+			if (dato.compareTo(arbol.getDatoRaiz()) < 0) {
+				eliminarRecu(dato, this.getHijoIzquierdo());
+			}
+			else {
+				if (dato.compareTo(arbol.getDatoRaiz()) > 0 ) {
+					eliminarRecu(dato, this.getHijoDerecho());
+				}
+				else {
+					if (!(this.getHijoIzquierdo().esVacio()) && !(this.getHijoDerecho().esVacio())) {
+						this = findMin(this.getHijoDerecho());
+						eliminarRecu(this.getDatoRaiz(),this.getHijoDerecho());
+					}
+					else {
+						this = (!this.getHijoIzquierdo().esVacio())?this.getHijoIzquierdo():this.getHijoDerecho();
+						return true;
+					}
+				}
+			}
+		}
+	}
+	private ArbolBinarioDeBusqueda<T> findMin(ArbolBinarioDeBusqueda<T> arbol){
+		if(!arbol.esVacio()){
+			if(arbol.getHijoIzquierdo().esVacio()){
+				return arbol;
+			}
+			else {
+				return findMin(arbol.getHijoIzquierdo());
+			}
+		}
+		else {
+			return null;
+		}
 	}
 
 	public boolean esVacio() {
