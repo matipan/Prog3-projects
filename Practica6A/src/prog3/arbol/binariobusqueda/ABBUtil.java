@@ -30,7 +30,6 @@ public class ABBUtil{
 		}
 		lista.agregarFinal(aux);
 	}
-}
 
 	public ListaDeEnterosEnlazada menoresOrdenados(ArbolBinarioDeBusqueda<Integer> arbol, int valor){
 		ListaDeEnterosEnlazada lista = new ListaDeEnterosEnlazada();
@@ -38,7 +37,7 @@ public class ABBUtil{
 		return lista;
 	}
 
-	private void menoresRecu(ArbolBinarioDeBusqueda<Integer> arbol, ListaEnlazadaGenerica lista, int valor){
+	private void menoresRecu(ArbolBinarioDeBusqueda<Integer> arbol, ListaDeEnterosEnlazada lista, int valor){
 		if (arbol.esVacio()) {
 			if (valor > arbol.getDatoRaiz()) {
 				menoresRecu(arbol.getHijoIzquierdo(),lista,valor);
@@ -46,7 +45,7 @@ public class ABBUtil{
 				menoresRecu(arbol.getHijoDerecho(), lista, valor);
 			}
 			else {
-				menoresRecu(arbol.getHijoIzquierdo());
+				menoresRecu(arbol.getHijoIzquierdo(), lista, valor);
 			}
 		}
 	}
