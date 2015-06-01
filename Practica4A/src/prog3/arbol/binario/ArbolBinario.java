@@ -127,7 +127,7 @@ public class ArbolBinario<T> {
 					cola.encolar(this.getHijoIzquierdo()); // encolamos el hijo izquierdo
 				}
 				else {
-					flagNFN = false; // ya que encontramos un nodo que no esta lleno
+					flagNFN = true; // ya que encontramos un nodo que no esta lleno
 				}
 				if (!this.getHijoDerecho().esVacio()) {
 					if (flagNFN) {

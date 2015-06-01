@@ -105,7 +105,7 @@ public class ArbolAVL<T extends Comparable<T>> {
 			}
 		}
 		this.raiz = balancear(this.raiz, dato);
-		this.getDatoRaiz().setAltura(Math.max(altura(this.getHijoIzquierdo().getRaiz()),altura(this.getHijoDerecho().getDato())) + 1);
+		this.raiz.setAltura(Math.max(altura(this.getHijoIzquierdo().raiz),altura(this.getHijoDerecho().raiz) + 1));
 		return this.raiz;
 	}
 
