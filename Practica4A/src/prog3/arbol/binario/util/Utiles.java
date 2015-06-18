@@ -16,12 +16,12 @@ public class Utiles<T> {
 		}
 	}
 
-	public static int sumaHorizontalMaxima(ArbolBinario<Integer> ab){
+	/**public static int sumaHorizontalMaxima(ArbolBinario<Integer> ab){
 		if (ab == null) {
 			return 0;
 		}
 		else {
 
 		}
-	}
+	}*/
 }

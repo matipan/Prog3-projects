@@ -1,7 +1,7 @@
 package prog3.arbol.general;
-
 import prog3.lista.ListaEnlazadaGenerica;
 import prog3.lista.ListaGenerica;
+import prog3.util.ColaGenerica;
 
 public class ArbolGeneral<T> {
 
