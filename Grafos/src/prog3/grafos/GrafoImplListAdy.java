@@ -5,9 +5,9 @@ import prog3.lista.ListaGenerica;
 
 public class GrafoImplListAdy<T> implements Grafo<T> {
     private ListaGenerica<Vertice<T>>vertices = new ListaEnlazadaGenerica<Vertice<T>>();
-	
-	
-	
+
+
+
 	@Override
 	public void agregarVertice(Vertice<T> v) {
 		VerticeImplListAdy<T> v2 = ((VerticeImplListAdy<T>) v);
@@ -32,40 +32,40 @@ public class GrafoImplListAdy<T> implements Grafo<T> {
 	public void conectar(Vertice<T> origen, Vertice<T> destino) {
 		((VerticeImplListAdy<T>) origen).conectar(destino);
 
-		
+
 	}
 
 	@Override
 	public void conectar(Vertice<T> origen, Vertice<T> destino, int peso) {
 		((VerticeImplListAdy<T>) origen).conectar(destino,peso);
-		
+
 	}
 
 	@Override
 	public void desConectar(Vertice<T> origen, Vertice<T> destino) {
 		((VerticeImplListAdy<T>) origen).desconectar(destino);
-		
+
 	}
 
 	@Override
 	public boolean esAdyacente(Vertice<T> origen, Vertice<T> destino) {
-		if (vertices.incluye(origen) && vertices.incluye(destino)){		
+		if (vertices.incluye(origen) && vertices.incluye(destino)){
 		return ((VerticeImplListAdy<T>) origen).esAdyacente(destino);
-	
+
 		}
 	return false;
 	}
-		
+
 
 	@Override
 	public boolean esVacio() {
-		
+
 		return vertices.esVacia();
 	}
 
 	@Override
 	public ListaGenerica<Vertice<T>> listaDeVertices() {
-		
+
 		return vertices;
 	}
 
@@ -83,6 +83,4 @@ public class GrafoImplListAdy<T> implements Grafo<T> {
 	public Vertice<T> vertice(int posicion) {
 		return this.listaDeVertices().elemento(posicion);
 	}
-	
-
 }
