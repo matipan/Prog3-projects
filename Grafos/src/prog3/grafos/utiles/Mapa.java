@@ -53,6 +53,46 @@ public class Mapa {
 		camino.eliminar(camino.tamanio());
 	}
 
+	public ListaGenerica<String> devolverCaminoExceptuando(ListaGenerica<String> ignorar, String ciudad1, String ciudad2){
+		ListaGenerica<String> camino = new ListaEnlazadaGenerica<String>();
+		ListaGenerica<String> caminoFinal = new ListaEnlazadaGenerica<String>();
+		Vertice<String> origen = null;
+		Vertice<String> destino = null;
+		ListaGenerica<Vertice<String>> ciudades = mapaCiudades.listaDeVertices();
+		boolean[] visitados = new boolean[ciudades.tamanio()];
+		ciudades.comenzar();
+		while (!ciudades.fin() && (origen == null || destino == null)) {
+			Vertice<String> ciudad_actual = ciudades.proximo();
+			if (ciudad_actual.dato().equals(ciudad1)) {
+				origen = ciudad_actual;
+			}
+			if (ciudad_actual.dato().equals(ciudad2)) {
+				destino = ciudad_actual;
+			}
+		}
+		dfs_exceptuando(camino,caminoFinal,origen,destino,visitados, ignorar);
+		return caminoFinal;
+	}
+
+	private void dfs_exceptuando(ListaGenerica<String> camino, ListaGenerica<String> caminoFinal, Vertice<String> origen, Vertice<String> destino, boolean[] visitados, ListaGenerica<String> ignorar){
+		visitados[origen.posicion()] = true;
+		camino.agregarFinal(origen.dato());
+		if (camino.tamanio() <= caminoFinal.tamanio() || caminoFinal.esVacia()) {
+			this.copiar(camino,caminoFinal);
+		} else {
+			ListaGenerica<Arista<String>> adyacentes = mapaCiudades.listaDeAdyacentes(origen);
+			adyacentes.comenzar();
+			while (!adyacentes.fin()) {
+				Arista<String> actual = adyacentes.proximo();
+				if (!visitados[actual.verticeDestino().posicion()] && !ignorar.incluye(actual.verticeDestino().dato())) {
+					dfs_exceptuando(camino,caminoFinal,actual.verticeDestino(), destino, visitados, ignorar);
+				}
+			}
+		}
+		visitados[origen.posicion()] = false;
+		camino.eliminar(camino.tamanio());
+	}
+
 	public void copiar(ListaGenerica<String> fuente, ListaGenerica<String> destino){
 		for (int i = 1; i<= destino.tamanio(); i++) {
 			destino.eliminar(1);
