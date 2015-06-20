@@ -164,7 +164,7 @@ public class Mapa {
 		visitados[origen.posicion()] = true;
 		camino.agregarFinal(origen.dato());
 		if (origen.equals(destino)) {
-			if (camino.tamanio() <= caminoFinal.tamanio() || !caminoFinal.esVacia()) {
+			if (camino.tamanio() <= caminoFinal.tamanio() || caminoFinal.esVacia()) {
 				this.copiar(camino,caminoFinal);
 			}
 		} else {
