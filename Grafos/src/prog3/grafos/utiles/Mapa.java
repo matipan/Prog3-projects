@@ -139,6 +139,101 @@ public class Mapa {
 		camino.eliminar(camino.tamanio());
 	}
 
+	public ListaGenerica<String> caminoSinCargarCombustible(String ciudad1, String ciudad2, int tanqueAuto){
+		ListaGenerica<String> caminoFinal = new ListaEnlazadaGenerica<String>();
+		ListaGenerica<String> camino = new ListaEnlazadaGenerica<String>();
+		ListaGenerica<Vertice<String>> vertices = mapaCiudades.listaDeVertices();
+		Vertice<String> origen = null;
+		Vertice<String> destino = null;
+		boolean[] visitados = new boolean[vertices.tamanio()];
+		vertices.comenzar();
+		while (!vertices.fin()) {
+			Vertice<String> ciudad_actual = vertices.proximo();
+			if (ciudad_actual.dato().compareTo(ciudad1) == 0) {
+				origen = ciudad_actual;
+			}
+			if (ciudad_actual.dato().compareTo(ciudad2)== 0) {
+				destino = ciudad_actual;
+			}
+		}
+		dfs_combustible(camino,caminoFinal,visitados,tanqueAuto,origen,destino);
+		return caminoFinal;
+	}
+
+	private void dfs_combustible(ListaGenerica<String> camino, ListaGenerica<String> caminoFinal, boolean[] visitados, int tanqueAuto, Vertice<String> origen, Vertice<String> destino){
+		visitados[origen.posicion()] = true;
+		camino.agregarFinal(origen.dato());
+		if (origen.equals(destino)) {
+			if (camino.tamanio() <= caminoFinal.tamanio() || !caminoFinal.esVacia()) {
+				this.copiar(camino,caminoFinal);
+			}
+		} else {
+			ListaGenerica<Arista<String>> adyacentes = mapaCiudades.listaDeAdyacentes(origen);
+			adyacentes.comenzar();
+			while (!adyacentes.fin()) {
+				Arista<String> actual = adyacentes.proximo();
+				if (!visitados[actual.verticeDestino().posicion()]) {
+					if (tanqueAuto - actual.peso() > 0) {
+						dfs_combustible(camino,caminoFinal,visitados,tanqueAuto - actual.peso(), actual.verticeDestino(), destino);
+					}
+				}
+			}
+		}
+		visitados[origen.posicion()] = false;
+		camino.eliminar(camino.tamanio());
+	}
+
+	public ListaGenerica<String> caminoConMenorCargaDeCombustible(String ciudad1, String ciudad2, int tanqueAuto){
+		ListaGenerica<String> camino = new ListaEnlazadaGenerica<String>();
+		ListaGenerica<String> caminoFinal = new ListaEnlazadaGenerica<String>();
+		ListaGenerica<Vertice<String>> vertices = mapaCiudades.listaDeVertices();
+		boolean[] visitados = new boolean[vertices.tamanio()];
+		Vertice<String> origen = null;
+		Vertice<String> destino = null;
+		vertices.comenzar();
+		while (!vertices.fin()) {
+			Vertice<String> ciudad_actual = vertices.proximo();
+			if (ciudad_actual.dato().equals(ciudad1)) {
+				origen = ciudad_actual;
+			}
+			if (ciudad_actual.dato().equals(ciudad2)) {
+				destino = ciudad_actual;
+			}
+		}
+		int[] cargaTotal = new int[1];
+		cargaTotal[0] = 9999999;
+		int cargaActual = 0;
+		dfs_menor_carga(camino,caminoFinal,visitados,origen,destino,tanqueAuto,cargaTotal,cargaActual);
+		return caminoFinal;
+	}
+
+	private void dfs_menor_carga(ListaGenerica<String> camino, ListaGenerica<String> caminoFinal, boolean[] visitados, Vertice<String> origen, Vertice<String> destino, int tanqueAuto, int[] cargaTotal, int cargaActual){
+		visitados[origen.posicion()] = true;
+		camino.agregarFinal(origen.dato());
+		if (origen.equals(destino)) {
+			if (cargaActual < cargaTotal[0]) {
+				cargaTotal[0] = cargaActual;
+				this.copiar(camino,caminoFinal);
+			}
+		} else {
+			ListaGenerica<Arista<String>> adyacentes = mapaCiudades.listaDeAdyacentes(origen);
+			adyacentes.comenzar();
+			while (!adyacentes.fin()) {
+				Arista<String> actual = adyacentes.proximo();
+				if (!visitados[actual.verticeDestino().posicion()]) {
+					if (tanqueAuto - actual.peso() < 0) {
+						dfs_menor_carga(camino,caminoFinal, visitados, actual.verticeDestino(), destino, tanqueAuto - actual.peso(), cargaTotal, cargaActual + 1);
+					} else {
+						dfs_menor_carga(camino,caminoFinal, visitados,actual.verticeDestino(), destino, tanqueAuto - actual.peso(), cargaTotal, cargaActual);
+					}
+				}
+			}
+		}
+		visitados[origen.posicion()] = false;
+		camino.eliminar(camino.tamanio());
+	}
+
+
 	public void copiar(ListaGenerica<String> fuente, ListaGenerica<String> destino){
 		for (int i = 1; i<= destino.tamanio(); i++) {
 			destino.eliminar(1);
