@@ -35,9 +35,7 @@ public class Mapa {
 		visitados[origen.posicion()-1] = true; // visitamos el vertice actual
 		camino.agregarFinal(origen.dato());
 		if (origen.equals(destino)) {
-			if (camino.tamanio() <= caminoFinal.tamanio() || caminoFinal.esVacia()) {
-				this.copiar(camino,caminoFinal);
-			}
+			this.copiar(camino,caminoFinal);
 		}
 		else {
 			ListaGenerica<Arista<String>> adyacentes = mapaCiudades.listaDeAdyacentes(origen);
@@ -77,8 +75,10 @@ public class Mapa {
 	private void dfs_exceptuando(ListaGenerica<String> camino, ListaGenerica<String> caminoFinal, Vertice<String> origen, Vertice<String> destino, boolean[] visitados, ListaGenerica<String> ignorar){
 		visitados[origen.posicion()-1] = true;
 		camino.agregarFinal(origen.dato());
-		if (camino.tamanio() <= caminoFinal.tamanio() || caminoFinal.esVacia()) {
-			this.copiar(camino,caminoFinal);
+		if(origen.equals(destino)){
+			if (camino.tamanio() <= caminoFinal.tamanio() || caminoFinal.esVacia()) {
+               this.copiar(camino,caminoFinal);
+			}
 		} else {
 			ListaGenerica<Arista<String>> adyacentes = mapaCiudades.listaDeAdyacentes(origen);
 			adyacentes.comenzar();
@@ -235,11 +235,50 @@ public class Mapa {
 
 
 	public void copiar(ListaGenerica<String> fuente, ListaGenerica<String> destino){
-		for (int i = 1; i<= destino.tamanio(); i++) {
+		int tamanio = destino.tamanio();
+		for (int i = 1; i<= tamanio; i++) {
 			destino.eliminar(1);
 		}
-		for (int i = 1; i<=fuente.tamanio(); i++) {
+		for (int i = 1; i <= fuente.tamanio(); i++) {
 			destino.agregarFinal(fuente.elemento(i));
 		}
+	}
+
+	public Mapa(){
+		mapaCiudades=new GrafoImplListAdy<String>();
+		Vertice<String> a=new VerticeImplListAdy<String>("Bariloche");
+		Vertice<String> b=new VerticeImplListAdy<String>("Villa");
+		Vertice<String> c=new VerticeImplListAdy<String>("Chile");
+		Vertice<String> d=new VerticeImplListAdy<String>("SanMa");
+		Vertice<String> e=new VerticeImplListAdy<String>("Pepe");
+		Vertice<String> f=new VerticeImplListAdy<String>("Bolson");
+		Vertice<String> g=new VerticeImplListAdy<String>("Nqn");
+		this.mapaCiudades.agregarVertice(a);
+		this.mapaCiudades.agregarVertice(b);
+		this.mapaCiudades.agregarVertice(c);
+		this.mapaCiudades.agregarVertice(d);
+		this.mapaCiudades.agregarVertice(e);
+		this.mapaCiudades.agregarVertice(f);
+		this.mapaCiudades.agregarVertice(g);
+		this.mapaCiudades.conectar(a,e);
+		this.mapaCiudades.conectar(a,f);
+		this.mapaCiudades.conectar(a,d);
+		this.mapaCiudades.conectar(a,b);
+		this.mapaCiudades.conectar(c,b);
+		this.mapaCiudades.conectar(c,f);
+		this.mapaCiudades.conectar(f,e);
+		this.mapaCiudades.conectar(e,g);
+		this.mapaCiudades.conectar(d,g);
+		this.mapaCiudades.conectar(e,a);
+		this.mapaCiudades.conectar(f,a);
+		this.mapaCiudades.conectar(d,a);
+		this.mapaCiudades.conectar(b,a);
+		this.mapaCiudades.conectar(b,c);
+		this.mapaCiudades.conectar(f,c);
+		this.mapaCiudades.conectar(e,f);
+		this.mapaCiudades.conectar(g,e);
+		this.mapaCiudades.conectar(g,d);
+		this.mapaCiudades.conectar(f,g);
+		this.mapaCiudades.conectar(g,f);
 	}
 }
