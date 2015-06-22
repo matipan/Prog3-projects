@@ -191,7 +191,7 @@ public class Mapa {
 		Vertice<String> origen = null;
 		Vertice<String> destino = null;
 		vertices.comenzar();
-		while (!vertices.fin()) {
+		while (!vertices.fin() && (origen == null || destino == null)) {
 			Vertice<String> ciudad_actual = vertices.proximo();
 			if (ciudad_actual.dato().equals(ciudad1)) {
 				origen = ciudad_actual;
