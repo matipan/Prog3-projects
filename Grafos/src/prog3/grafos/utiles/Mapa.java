@@ -32,7 +32,7 @@ public class Mapa {
 	}
 
 	private void dfs(ListaGenerica<String> camino, ListaGenerica<String> caminoFinal, Vertice<String> origen, Vertice<String> destino, boolean[] visitados){
-		visitados[origen.posicion()] = true; // visitamos el vertice actual
+		visitados[origen.posicion()-1] = true; // visitamos el vertice actual
 		camino.agregarFinal(origen.dato());
 		if (origen.equals(destino)) {
 			if (camino.tamanio() <= caminoFinal.tamanio() || caminoFinal.esVacia()) {
@@ -44,12 +44,12 @@ public class Mapa {
 			adyacentes.comenzar();
 			while (!adyacentes.fin()) {
 				Arista<String> actual = adyacentes.proximo();
-				if (!visitados[actual.verticeDestino().posicion()]) {
+				if (!visitados[actual.verticeDestino().posicion()-1]) {
 					dfs(camino,caminoFinal,actual.verticeDestino(),destino,visitados); // llamado recursivo
 				}
 			}
 		}
-		visitados[origen.posicion()] = false;
+		visitados[origen.posicion()-1] = false;
 		camino.eliminar(camino.tamanio());
 	}
 
@@ -75,7 +75,7 @@ public class Mapa {
 	}
 
 	private void dfs_exceptuando(ListaGenerica<String> camino, ListaGenerica<String> caminoFinal, Vertice<String> origen, Vertice<String> destino, boolean[] visitados, ListaGenerica<String> ignorar){
-		visitados[origen.posicion()] = true;
+		visitados[origen.posicion()-1] = true;
 		camino.agregarFinal(origen.dato());
 		if (camino.tamanio() <= caminoFinal.tamanio() || caminoFinal.esVacia()) {
 			this.copiar(camino,caminoFinal);
@@ -84,12 +84,12 @@ public class Mapa {
 			adyacentes.comenzar();
 			while (!adyacentes.fin()) {
 				Arista<String> actual = adyacentes.proximo();
-				if (!visitados[actual.verticeDestino().posicion()] && !ignorar.incluye(actual.verticeDestino().dato())) {
+				if (!visitados[actual.verticeDestino().posicion()-1] && !ignorar.incluye(actual.verticeDestino().dato())) {
 					dfs_exceptuando(camino,caminoFinal,actual.verticeDestino(), destino, visitados, ignorar);
 				}
 			}
 		}
-		visitados[origen.posicion()] = false;
+		visitados[origen.posicion() - 1] = false;
 		camino.eliminar(camino.tamanio());
 	}
 
@@ -118,7 +118,7 @@ public class Mapa {
 	}
 
 	private void dfs_mas_corto(ListaGenerica<String> camino, ListaGenerica<String> caminoFinal, Vertice<String> origen, Vertice<String> destino, boolean[] visitados, int pesoAct, int[] pesoTotal){
-		visitados[origen.posicion()] = true;
+		visitados[origen.posicion()-1] = true;
 		camino.agregarFinal(origen.dato());
 		if (origen.equals(destino)) {
 			if (pesoAct <= pesoTotal[0]) {
@@ -130,12 +130,12 @@ public class Mapa {
 			adyacentes.comenzar();
 			while (!adyacentes.fin()) {
 				Arista<String> actual = adyacentes.proximo();
-				if (!visitados[actual.verticeDestino().posicion()]) {
+				if (!visitados[actual.verticeDestino().posicion() - 1]) {
 					dfs_mas_corto(camino,caminoFinal,actual.verticeDestino(), destino, visitados, pesoAct + actual.peso(), pesoTotal);
 				}
 			}
 		}
-		visitados[origen.posicion()] = false;
+		visitados[origen.posicion()-1] = false;
 		camino.eliminar(camino.tamanio());
 	}
 
@@ -161,7 +161,7 @@ public class Mapa {
 	}
 
 	private void dfs_combustible(ListaGenerica<String> camino, ListaGenerica<String> caminoFinal, boolean[] visitados, int tanqueAuto, Vertice<String> origen, Vertice<String> destino){
-		visitados[origen.posicion()] = true;
+		visitados[origen.posicion()-1] = true;
 		camino.agregarFinal(origen.dato());
 		if (origen.equals(destino)) {
 			if (camino.tamanio() <= caminoFinal.tamanio() || caminoFinal.esVacia()) {
@@ -172,14 +172,14 @@ public class Mapa {
 			adyacentes.comenzar();
 			while (!adyacentes.fin()) {
 				Arista<String> actual = adyacentes.proximo();
-				if (!visitados[actual.verticeDestino().posicion()]) {
+				if (!visitados[actual.verticeDestino().posicion()-1]) {
 					if (tanqueAuto - actual.peso() > 0) {
 						dfs_combustible(camino,caminoFinal,visitados,tanqueAuto - actual.peso(), actual.verticeDestino(), destino);
 					}
 				}
 			}
 		}
-		visitados[origen.posicion()] = false;
+		visitados[origen.posicion()-1] = false;
 		camino.eliminar(camino.tamanio());
 	}
 
@@ -208,7 +208,7 @@ public class Mapa {
 	}
 
 	private void dfs_menor_carga(ListaGenerica<String> camino, ListaGenerica<String> caminoFinal, boolean[] visitados, Vertice<String> origen, Vertice<String> destino, int tanqueAuto, int[] cargaTotal, int cargaActual){
-		visitados[origen.posicion()] = true;
+		visitados[origen.posicion()-1] = true;
 		camino.agregarFinal(origen.dato());
 		if (origen.equals(destino)) {
 			if (cargaActual < cargaTotal[0]) {
@@ -220,7 +220,7 @@ public class Mapa {
 			adyacentes.comenzar();
 			while (!adyacentes.fin()) {
 				Arista<String> actual = adyacentes.proximo();
-				if (!visitados[actual.verticeDestino().posicion()]) {
+				if (!visitados[actual.verticeDestino().posicion()-1]) {
 					if (tanqueAuto - actual.peso() < 0) {
 						dfs_menor_carga(camino,caminoFinal, visitados, actual.verticeDestino(), destino, tanqueAuto - actual.peso(), cargaTotal, cargaActual + 1);
 					} else {
@@ -229,7 +229,7 @@ public class Mapa {
 				}
 			}
 		}
-		visitados[origen.posicion()] = false;
+		visitados[origen.posicion()-1] = false;
 		camino.eliminar(camino.tamanio());
 	}
 
