@@ -32,13 +32,13 @@ public class Delta {
 			camino.eliminar(camino.tamanio());
 		}
 	}
-		public void copiar(ListaGenerica<String> fuente, ListaGenerica<String> destino){
-			int tamanio = destino.tamanio();
-			for (int i = 1; i<= tamanio; i++) {
-				destino.eliminar(1);
-			}
-			for (int i = 1; i <= fuente.tamanio(); i++) {
-				destino.agregarFinal(fuente.elemento(i));
-			}
+	public void copiar(ListaGenerica<String> fuente, ListaGenerica<String> destino){
+		int tamanio = destino.tamanio();
+		for (int i = 1; i<= tamanio; i++) {
+			destino.eliminar(1);
 		}
+		for (int i = 1; i <= fuente.tamanio(); i++) {
+			destino.agregarFinal(fuente.elemento(i));
+		}
+	}
 }
