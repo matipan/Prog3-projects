@@ -14,9 +14,6 @@ public class Recorridos<T> {
 		ListaGenerica<Vertice<T>>lista_vertices = new ListaEnlazadaGenerica<Vertice<T>>();
 		ListaGenerica<Vertice<T>> vertices = grafo.listaDeVertices();
 		boolean[] visitados = new boolean[vertices.tamanio()];
-		for (int i = 1;i < vertices.tamanio() ; i++) {
-			visitados[i] = false;
-		}
 		vertices.comenzar();
 		while (!vertices.fin()){
 			Vertice<T> vertice = vertices.proximo();
