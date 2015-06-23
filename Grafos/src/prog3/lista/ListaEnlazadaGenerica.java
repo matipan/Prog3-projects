@@ -95,7 +95,7 @@ public class ListaEnlazadaGenerica<T> extends ListaGenerica<T> {
 			return false;
 		else {
 			if (ant == null)
-				// acá está el bug, esta linea asume que la lista tiene un solo no do
+				// acï¿½ estï¿½ el bug, esta linea asume que la lista tiene un solo no do
 				// y hace perder la lista totalmente
 				//inicio = null;
 				inicio = inicio.getSiguiente();
