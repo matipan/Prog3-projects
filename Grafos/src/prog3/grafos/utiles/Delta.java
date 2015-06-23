@@ -17,7 +17,7 @@ public class Delta {
 	}
 
 	private void dfs_max(Vertice<String> inicial, Vertice<String> actual, boolean[] visitados, ListaGenerica<String> camino, ListaGenerica<String> caminoFinal, Grafo<String> grafo){
-		visitados[actual.posicion()] = true;
+		visitados[actual.posicion() - 1] = true;
 		camino.agregarFinal(actual.dato());
 		if (camino.tamanio() > caminoFinal.tamanio()) {
 			copiar(camino, caminoFinal);
@@ -30,7 +30,7 @@ public class Delta {
 					dfs_max(inicial, a_actual.verticeDestino(), visitados, camino, caminoFinal, grafo);
 				}
 			}
-			visitados[actual.posicion()] = false;
+			visitados[actual.posicion() - 1] = false;
 			camino.eliminar(camino.tamanio());
 		}
 	}
@@ -60,7 +60,7 @@ public class Delta {
 	}
 
 	private void dfs_mas_corto(ListaGenerica<String> camino, ListaGenerica<String> caminoFinal, Vertice<String> v_inicial, Vertice<String> v_final, boolean[] visitados, Grafo<String> grafo){
-		visitados[v_inicial.posicion()] = true;
+		visitados[v_inicial.posicion()-1] = true;
 		camino.agregarFinal(v_inicial.dato());
 		if (v_inicial.equals(v_final)) {
 			if (camino.tamanio() < caminoFinal.tamanio() || caminoFinal.esVacia()) {
@@ -76,6 +76,8 @@ public class Delta {
 				}
 			}
 		}
+		visitados[v_inicial.posicion()-1] = false;
+		camino.eliminar(camino.tamanio());
 	}
 
 	public void copiar(ListaGenerica<String> fuente, ListaGenerica<String> destino){
