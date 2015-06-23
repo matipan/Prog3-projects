@@ -4,6 +4,36 @@ import prog3.lista.*;
 import prog3.grafos.*;
 
 public class GuiaDeTurismo {
+	public static void main(String[] args){
+		Grafo<String> mapa=new GrafoImplListAdy<String>();
+		Vertice<String> o1=new VerticeImplListAdy<String>("Uno");
+		Vertice<String> o2=new VerticeImplListAdy<String>("Dos");
+		Vertice<String> o3=new VerticeImplListAdy<String>("Tres");
+		Vertice<String> o4=new VerticeImplListAdy<String>("Cuatro");
+		Vertice<String> o5=new VerticeImplListAdy<String>("Cinco");
+		Vertice<String> o6=new VerticeImplListAdy<String>("Seis");
+		Vertice<String> o7=new VerticeImplListAdy<String>("Siete");
+		mapa.agregarVertice(o1);mapa.agregarVertice(o2);mapa.agregarVertice(o3);
+		mapa.agregarVertice(o4);mapa.agregarVertice(o5);mapa.agregarVertice(o6);
+		mapa.agregarVertice(o7);
+		mapa.conectar(o1, o2, 30);mapa.conectar(o2, o1, 30);
+		mapa.conectar(o1, o3, 15);mapa.conectar(o3, o1, 15);
+		mapa.conectar(o1, o4, 10);mapa.conectar(o4, o1, 10);
+		mapa.conectar(o2, o5, 60);mapa.conectar(o5, o2, 60);
+		mapa.conectar(o2, o4, 25);mapa.conectar(o4, o2, 25);
+		mapa.conectar(o3, o4, 40);mapa.conectar(o4, o3, 40);
+		mapa.conectar(o3, o6, 20);mapa.conectar(o6, o3, 20);
+		mapa.conectar(o4, o7, 35);mapa.conectar(o7, o4, 35);
+		mapa.conectar(o6, o7, 30);mapa.conectar(o7, o6, 30);
+		mapa.conectar(o5, o7, 20);mapa.conectar(o7, o5, 20);
+		GuiaDeTurismo guia=new GuiaDeTurismo();
+		ListaGenerica<String> camino=guia.caminoConMenorNroDeViajes(mapa, "Uno", "Siete");
+		camino.comenzar();
+		System.out.println("Camino: ");
+		while(!camino.fin())
+			System.out.print(camino.proximo()+" ");
+	}
+
 	public ListaGenerica<String> caminoConMenorNroDeViajes(Grafo<String> grafo, String puntoDeOrigen, String puntoDeInteres){
 		ListaGenerica<String> camino = new ListaEnlazadaGenerica<String>();
 		ListaGenerica<String> caminoFinal = new ListaEnlazadaGenerica<String>();
@@ -41,7 +71,7 @@ public class GuiaDeTurismo {
 			adyacentes.comenzar();
 			while (!adyacentes.fin()) {
 				Arista<String> actual = adyacentes.proximo();
-				if (!visitados[actual.verticeDestino().posicion()]) {
+				if (!visitados[actual.verticeDestino().posicion()-1]) {
 					peso_minimo[1] = actual.peso();
 					dfs_menor_nro_de_viajes(camino, caminoFinal, grafo, actual.verticeDestino(), v_final, visitados, peso_minimo);
 				}
